@@ -1,0 +1,88 @@
+import java.util.Scanner;
+abstract class Media
+{
+    String title;
+    String publication;
+    abstract void read();
+    abstract void show();
+}
+class Book extends Media
+{
+    int pages;
+    static int countBooks = 0;   
+    void read()
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter book title: ");
+        title = sc.nextLine();
+        System.out.print("Enter publication: ");
+        publication = sc.nextLine();
+        System.out.print("Enter number of pages: ");
+        pages = sc.nextInt();
+        if(pages > 400)
+        {
+            countBooks++;
+        }
+    }
+    void show()
+    {
+        System.out.println("Book Title: " + title);
+        System.out.println("Publication: " + publication);
+        System.out.println("Pages: " + pages); }
+    static int count()
+    {
+        return countBooks;
+    }}
+class Tape extends Media
+{
+    int playingTime;
+    void read()
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter tape title: ");
+        title = sc.nextLine();
+        System.out.print("Enter publication: ");
+        publication = sc.nextLine();
+        System.out.print("Enter playing time (minutes): ");
+        playingTime = sc.nextInt();
+    }
+    void show()
+    {
+        System.out.println("Tape Title: " + title);
+        System.out.println("Publication: " + publication);
+        System.out.println("Playing Time: " + playingTime + " minutes");
+    }
+}
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of books: ");
+        int n = sc.nextInt();
+        sc.nextLine(); 
+        Book[] books = new Book[n];
+        for(int i = 0; i < n; i++)  {
+            System.out.println("\nEnter details of Book " + (i + 1));
+            books[i] = new Book();
+            books[i].read();}
+        System.out.print("\nEnter number of tapes: ");
+        int m = sc.nextInt();
+        sc.nextLine(); 
+        Tape[] tapes = new Tape[m];
+        for(int i = 0; i < m; i++){
+            System.out.println("\nEnter details of Tape " + (i + 1));
+            tapes[i] = new Tape();
+            tapes[i].read();}
+               System.out.println("\n--- Book Details ---");
+        for(int i = 0; i < n; i++){
+            books[i].show();
+            System.out.println();}
+        System.out.println("\n--- Tape Details ---");
+        for(int i = 0; i < m; i++){
+            tapes[i].show();
+            System.out.println();  }
+        System.out.println("Number of books having more than 400 pages: " + Book.count());
+        System.out.println("\nTapes with playing time more than 60 minutes:");
+        for(int i = 0; i < m; i++)   {
+            if(tapes[i].playingTime > 60)
+            {      System.out.println(tapes[i].title);   }  }
+        sc.close();  }}
